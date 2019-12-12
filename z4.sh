@@ -39,7 +39,7 @@ if [ 5 -gt 5 ]; then
    echo "1"
 elif [ 5 -eg 5 ]; then
      echo "2"
-else 
+else
    echo "3"
 fi
 
