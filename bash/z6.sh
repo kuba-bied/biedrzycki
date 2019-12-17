@@ -4,7 +4,7 @@
 
 i=10
 
-until [ ${1} -eq  10 ]; do
+until [ ${i} -eq  10 ]; do
     echo ${i}
     i=$[i+1]
 done
