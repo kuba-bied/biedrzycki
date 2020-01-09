@@ -1,26 +1,44 @@
-#!/bin/bin
 
-function loadUsers() {
-    echo "loadUsers"
-}
+#!/bin/bash
+
+user_list=(`cat users.txt`)
+
 function showUsers() {
     echo "showUsers"
+    #Ładowanie danych z pliku
+    user_list=(`cat users.txt`)
+    for (( i=0; i<=${#user_list[@]}; i++ ))
+do
+	echo "	${user_list[i]}"
+    done
 }
+
 function addUsers() {
-    echo "addUsers"
+    echo "addUsers..."
+for user in "${user_list[@]}"
+do
+	echo "Add user: ${user}"
+	useradd ${user} -s /sbin/nologin -g "users"
+done
 }
 function delUsers() {
-    echo "delUsers"
+    echo "delUsers..."
 }
 function acceptRemoteLogin() {
-    echo "loadUsers"
+    echo "acceptRemoteLogin..."
 }
 function denieRemoteLogin() {
-    echo "loadUsers"
+    echo "denieRemoteLogin..."
 }
-function help() {
+function help() 
+{
     cat << EndOfMessage
-    Opis opcji 
+    Opis opcji skryptu:
+    ------------------
+SU -> listowanie urzytkowników
+AU -> dodawanie urzytkownika
+DU -> usuwanie urzytkownika
+EndOfMessage
 }
 
 
@@ -30,18 +48,17 @@ function Quit() {
 
 #menu
 
-select option in LU SU AU DU ARL DRL HELP QUIT
+select option in  SU AU DU ARL DRL HELP QUIT
 do 
 
     case ${option} in
-    "LU") loadUsers ;;
-    "SU") showUsers ;;
-"AU") addUsers ;;
-
-"Du" ) delUsers ;;
-   
-"ARL") accptRemoteLgin ;;
-
-"DRL") deineRemoteLogin ;;
-"HELP")  ;;
-"QUIT") loadUsers ;;
+	"SU") showUsers ;;
+	"AU") addUsers ;;
+	"DU" ) delUsers ;;
+	"ARL") acceptRemoteLogin ;;
+	"DRL") denieRemoteLogin ;;
+	"HELP")  help ;;
+	"QUIT") Quit ;;
+	 *) help
+    esac
+done
